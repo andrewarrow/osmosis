@@ -130,7 +130,6 @@ func (appKeepers *AppKeepers) InitNormalKeepers(
 	wasmConfig wasm.Config,
 	wasmEnabledProposals []wasm.ProposalType,
 	wasmOpts []wasm.Option,
-	blockedAddress map[string]bool,
 ) {
 	// Add 'normal' keepers
 	accountKeeper := authkeeper.NewAccountKeeper(
@@ -146,7 +145,7 @@ func (appKeepers *AppKeepers) InitNormalKeepers(
 		appKeepers.keys[banktypes.StoreKey],
 		appKeepers.AccountKeeper,
 		appKeepers.GetSubspace(banktypes.ModuleName),
-		blockedAddress,
+		map[string]bool{},
 	)
 	appKeepers.BankKeeper = &bankKeeper
 
@@ -173,7 +172,7 @@ func (appKeepers *AppKeepers) InitNormalKeepers(
 		appKeepers.BankKeeper,
 		appKeepers.StakingKeeper,
 		authtypes.FeeCollectorName,
-		blockedAddress,
+		map[string]bool{},
 	)
 	appKeepers.DistrKeeper = &distrKeeper
 
